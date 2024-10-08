@@ -96,12 +96,9 @@ const fetchPetsByCatagory = async (categoryName) => {
     `https://openapi.programming-hero.com/api/peddy/category/${categoryName}`
   );
   const data = await res.json();
-  displayPetsBycategoryName(data.data);
-};
-
-const displayPetsBycategoryName = (dataForEachCategory) => {
+  // displayPetsByCategoryName(data.data);
   const petCardsContainer = document.getElementById("pet-cards-container");
-  if (dataForEachCategory.length === 0) {
+  if (data.data.length === 0) {
     petCardsContainer.classList.remove("grid");
     petCardsContainer.innerHTML = "";
     const noPets = document.createElement("div");
@@ -113,10 +110,25 @@ const displayPetsBycategoryName = (dataForEachCategory) => {
     </div>
     `;
     petCardsContainer.appendChild(noPets);
+    activeBtn(categoryName);
   } else {
     petCardsContainer.classList.add("grid");
-    displayAllPets(dataForEachCategory);
+    displayAllPets(data.data);
+    activeBtn(categoryName);
+    // console.log(dataForEachCategory);
   }
+};
+
+const removeActiveClass = () => {
+  const buttons = document.querySelectorAll(".category-btn");
+  buttons.forEach((button) => {
+    button.classList.remove("border-teal-600", "btn-circle");
+  });
+};
+const activeBtn = (categoryName) => {
+  removeActiveClass();
+  const button = document.getElementById(categoryName);
+  button.classList.add("border-teal-600", "btn-circle");
 };
 
 fetchAllCategories();
