@@ -62,4 +62,62 @@ const displayAllPets = async (pets) => {
   });
 };
 
+const fetchAllCategories = async () => {
+  const response = await fetch(
+    "https://openapi.programming-hero.com/api/peddy/categories"
+  );
+  const data = await response.json();
+  // console.log(data.categories);
+  displayCategoriesBtn(data.categories);
+};
+
+const displayCategoriesBtn = (categories) => {
+  const categoryBtn = document.getElementById("category-buttons");
+  categories.forEach((category) => {
+    // console.log(category);
+
+    const div = document.createElement("div");
+    div.innerHTML = `
+    <button
+    id="${category.category}"
+    onclick="fetchPetsByCatagory('${category.category}')"
+          class="category-btn btn btn-outline btn-lg w-48 text-xl font-semibold"
+        >
+        <img class="w-10 h-10" src="${category.category_icon}"> </img>
+          ${category.category}
+        </button>
+    `;
+    categoryBtn.appendChild(div);
+  });
+};
+
+const fetchPetsByCatagory = async (categoryName) => {
+  const res = await fetch(
+    `https://openapi.programming-hero.com/api/peddy/category/${categoryName}`
+  );
+  const data = await res.json();
+  displayPetsBycategoryName(data.data);
+};
+
+const displayPetsBycategoryName = (dataForEachCategory) => {
+  const petCardsContainer = document.getElementById("pet-cards-container");
+  if (dataForEachCategory.length === 0) {
+    petCardsContainer.classList.remove("grid");
+    petCardsContainer.innerHTML = "";
+    const noPets = document.createElement("div");
+    noPets.classList.add("border", "border-gray-300", "rounded-md", "py-4");
+    noPets.innerHTML = `
+    <div class="flex flex-col justify-center items-center">
+    <img src="./images/error.webp" alt="" />
+     <h1 class="text-5xl font-bold text-center">No Pets Found in this Category</h1>
+    </div>
+    `;
+    petCardsContainer.appendChild(noPets);
+  } else {
+    petCardsContainer.classList.add("grid");
+    displayAllPets(dataForEachCategory);
+  }
+};
+
+fetchAllCategories();
 fetchAllPetsInfo();
