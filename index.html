@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Peddy</title>
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome -->
+    <script
+      src="https://kit.fontawesome.com/945603a62f.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- daisyUI -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@4.12.12/dist/full.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <!-- tailwindCSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Custom CSS -->
+    <style>
+      body {
+        font-family: "Lato", sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="container mx-auto">
+      <!-- Navbar -->
+      <nav>
+        <div class="navbar bg-base-100">
+          <div class="navbar-start">
+            <div class="dropdown">
+              <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 6h16M4 12h8m-8 6h16"
+                  />
+                </svg>
+              </div>
+              <ul
+                tabindex="0"
+                class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+              >
+                <li><a>Home</a></li>
+                <li>
+                  <a>Shop</a>
+                </li>
+                <li><a>Contact</a></li>
+              </ul>
+            </div>
+            <a class="btn btn-ghost text-2xl font-bold">
+              <img src="./images/logo.webp  " alt="Peddy" />
+              Peddy
+            </a>
+          </div>
+          <div class="navbar-center hidden lg:flex">
+            <ul class="menu menu-horizontal px-1 text-xl font-semibold">
+              <li><a>Home</a></li>
+              <li><a>Shop</a></li>
+              <li><a>Contact</a></li>
+            </ul>
+          </div>
+          <div class="navbar-end">
+            <a class="btn btn-circle btn-outline btn-md"
+              ><i class="fa-regular fa-user text-lg lg:text-xl"></i>
+            </a>
+          </div>
+        </div>
+      </nav>
+      <!-- Banner -->
+      <div
+        class="banner-section mt-12 flex flex-col justify-center items-center text-center space-y-4 px-12"
+      >
+        <div class="banner-content space-y-4">
+          <h4 class="text-gray-500 text-lg lg:text-xl font-semibold">
+            Bringing Families Together
+          </h4>
+          <h1 class="text-4xl font-extrabold lg:text-6xl">
+            Your Path to Adoption Starts Here
+          </h1>
+          <p class="text-gray-500 text-md lg:text-lg">
+            Discover the joy of pet adoption and make a difference in a furry
+            friend's life. Our platform connects loving families with adorable
+            pets seeking forever homes.
+          </p>
+          <a
+            href="#best-friend"
+            class="btn btn-outline btn-md text-xl font-semibold bg-teal-600 text-white"
+            >View More</a
+          >
+        </div>
+        <div class="banner-image">
+          <img src="./images/pet.webp" alt="Banner" />
+        </div>
+      </div>
+    </header>
+
+    <!-- Main -->
+    <main id="best-friend" class="container mx-auto px-4 lg:px-0 mb-12">
+      <!-- heading -->
+      <div class="heading-section mt-12 space-y-4 text-center">
+        <h1 class="text-2xl font-extrabold lg:text-4xl">
+          Adapt Your Best Friend
+        </h1>
+        <p class="text-gray-600 text-md lg:text-lg">
+          Discover the joy of pet adoption and make a difference in a furry
+          friend's life. Our platform connects loving families with adorable
+          pets seeking forever homes.
+        </p>
+      </div>
+
+      <!-- category buttons -->
+      <div
+        id="category-buttons"
+        class="buttons mt-4 flex flex-col md:flex-row flex-wrap justify-between items-center gap-4"
+      >
+        <!-- dynamically add buttons -->
+      </div>
+
+      <div class="flex justify-between items-center my-6">
+        <p class="text-xl lg:text-2xl font-extrabold">Best Deals For You</p>
+        <!-- sort by price  button-->
+        <a
+          id="sort-by-price"
+          class="btn btn-outline btn-md text-md font-semibold bg-teal-600 text-white"
+          >Sort By Price</a
+        >
+      </div>
+
+      <!-- show modal for details btn -->
+      <div id="modal-container">
+        <!-- dynamic modal -->
+      </div>
+
+      <!-- show modal for adopt btn -->
+      <div id="adopt-modal-container">
+        <!-- dynamic modal -->
+      </div>
+
+      <!-- spinner -->
+      <div id="spinner" class="mt-12 hidden justify-center items-center w-full">
+        <span class="loading loading-bars loading-lg"></span>
+      </div>
+
+      <!-- pet grid -->
+      <div
+        id="pet-grids"
+        class="pet-grids grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4"
+      >
+        <!-- pet grid left -->
+        <div
+          id="pet-cards-container"
+          class="left-div lg:col-span-2 grid grid-cols-1 lg:grid-cols-3 gap-4"
+        >
+          <!-- add dynamic cards via JS -->
+
+          <!-- dynamic card ends -->
+        </div>
+
+        <!-- pet grid right -->
+        <div
+          id="liked-pet-container"
+          class="right-div border border-gray-300 rounded-xl lg:col-span-1 grid grid-cols-1 lg:grid-cols-2 gap-4 p-4 auto-rows-min overflow-auto"
+        >
+          <!-- add dynamic cards via JS -->
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer bg-black text-neutral-content p-10">
+      <div
+        class="container mx-auto grid grid-cols-1 lg:grid-cols-4 gap-4 my-12"
+      >
+        <nav class="space-y-2 flex flex-col justify-center lg:col-span-2">
+          <a class="flex items-center gap-2 text-2xl font-bold">
+            <img src="./images/logo.webp  " alt="Peddy" />
+            Peddy
+          </a>
+          <p class="text-gray-500 text-lg">
+            Location : 1234 Main St, Anytown, USA
+          </p>
+          <p class="text-gray-500 text-lg">Phone : +1234567890</p>
+          <p class="text-gray-500 text-lg">Email : info@peddy.com</p>
+          <div class="socials flex items-center gap-4">
+            <a href="#" class="text-gray-500"
+              ><i class="fa-brands fa-facebook text-2xl"></i
+            ></a>
+            <a href="#" class="text-gray-500"
+              ><i class="fa-brands fa-twitter text-2xl"></i
+            ></a>
+            <a href="#" class="text-gray-500"
+              ><i class="fa-brands fa-instagram text-2xl"></i
+            ></a>
+            <a href="#" class="text-gray-500"
+              ><i class="fa-brands fa-linkedin text-2xl"></i
+            ></a>
+          </div>
+        </nav>
+        <nav class="space-y-2 flex flex-col justify-center text-lg">
+          <h6 class="footer-title">Useful Links</h6>
+          <a class="link link-hover">About us</a>
+          <a class="link link-hover">Contact</a>
+          <a class="link link-hover">Animals</a>
+          <a class="link link-hover">Foundations</a>
+        </nav>
+        <nav class="space-y-2 flex flex-col justify-center text-lg">
+          <h6 class="footer-title">Drop a Message</h6>
+          <div class="form-control">
+            <input
+              type="email"
+              placeholder="Your Email"
+              class="input input-bordered bg-transparent border-gray-500 text-white"
+            />
+          </div>
+          <button
+            class="btn btn-success outline-none bg-teal-600 text-white w-full mt-4"
+          >
+            Subscribe
+          </button>
+        </nav>
+      </div>
+    </footer>
+    <script src="./script.js"></script>
+  </body>
+</html>
