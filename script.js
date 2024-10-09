@@ -132,12 +132,12 @@ const petDetailsById = async (petId) => {
   div.innerHTML = `
   <dialog id="my_modal_${petId}" class="modal modal-bottom sm:modal-middle">
   <div class="modal-box">
-  <img class="w-full" src="${image}" />
+  <img class="w-full rounded-md" src="${image}" />
     <h3 class="text-3xl my-4 font-bold">${pet_name}</h3>
     <p class="text-gray-500 flex items-center gap-2">
            <i class="fa-solid fa-paw"></i>Breed: ${breed ? breed : "Unknown"}
                  </p>
- <p class="text-gray-500 flex items-center gap-2">
+              <p class="text-gray-500 flex items-center gap-2">
                    <i class="fa-solid fa-calendar-days"></i>Birth: ${
                      date_of_birth ? date_of_birth : "Unknown"
                    }
@@ -179,15 +179,12 @@ const fetchAllCategories = async () => {
     "https://openapi.programming-hero.com/api/peddy/categories"
   );
   const data = await response.json();
-  // console.log(data.categories);
   displayCategoriesBtn(data.categories);
 };
 
 const displayCategoriesBtn = (categories) => {
   const categoryBtn = document.getElementById("category-buttons");
   categories.forEach((category) => {
-    // console.log(category);
-
     const div = document.createElement("div");
     div.innerHTML = `
     <button
@@ -208,24 +205,37 @@ const fetchPetsByCatagory = async (categoryName) => {
     `https://openapi.programming-hero.com/api/peddy/category/${categoryName}`
   );
   const data = await res.json();
-  // displayPetsByCategoryName(data.data);
+
   const petCardsContainer = document.getElementById("pet-cards-container");
+  document.getElementById("spinner").classList.remove("hidden");
+  document.getElementById("spinner").classList.add("flex");
+  document.getElementById("pet-grids").classList.add("hidden");
+  petCardsContainer.innerHTML = "";
   if (data.data.length === 0) {
-    petCardsContainer.classList.remove("grid");
-    petCardsContainer.innerHTML = "";
-    const noPets = document.createElement("div");
-    noPets.classList.add("border", "border-gray-300", "rounded-md", "py-4");
-    noPets.innerHTML = `
-    <div class="flex flex-col justify-center items-center">
-    <img src="./images/error.webp" alt="" />
-     <h1 class="text-5xl font-bold text-center">No Pets Found in this Category</h1>
-    </div>
-    `;
-    petCardsContainer.appendChild(noPets);
+    setTimeout(() => {
+      petCardsContainer.classList.remove("grid");
+      document.getElementById("spinner").classList.remove("flex");
+      document.getElementById("spinner").classList.add("hidden");
+      document.getElementById("pet-grids").classList.remove("hidden");
+      const noPets = document.createElement("div");
+      noPets.classList.add("border", "border-gray-300", "rounded-md", "py-4");
+      noPets.innerHTML = `
+      <div class="flex flex-col justify-center items-center p-12">
+      <img src="./images/error.webp" alt="" />
+      <h1 class="text-2xl lg:text-5xl font-bold text-center">No Pets Found in this Category</h1>
+      </div>
+      `;
+      petCardsContainer.appendChild(noPets);
+    }, 2000);
     activeBtn(categoryName);
   } else {
-    petCardsContainer.classList.add("grid");
-    displayAllPets(data.data);
+    setTimeout(() => {
+      petCardsContainer.classList.add("grid");
+      document.getElementById("pet-grids").classList.remove("hidden");
+      document.getElementById("spinner").classList.remove("flex");
+      document.getElementById("spinner").classList.add("hidden");
+      displayAllPets(data.data);
+    }, 2000);
     activeBtn(categoryName);
   }
 };
