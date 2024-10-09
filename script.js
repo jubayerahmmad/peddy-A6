@@ -62,6 +62,54 @@ const displayAllPets = async (pets) => {
   });
 };
 
+const likePet = (image) => {
+  const likedPetContainer = document.getElementById("liked-pet-container");
+  const div = document.createElement("div");
+  div.innerHTML = `
+  <div class="p-2 rounded-md border border-teal-600">
+  <img class="rounded-md" src="${image}"  />
+  </div>
+  `;
+  likedPetContainer.appendChild(div);
+};
+
+const adoptPet = (petId) => {
+  const adoptModal = document.getElementById("adopt-modal-container");
+  const div = document.createElement("div");
+  div.innerHTML = `
+  <dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle">
+  <div class="modal-box flex flex-col justify-center items-center">
+    <h3 class="text-lg font-bold">Congratulations!!!</h3>
+    <p class="py-4">Your Adoption has been Completed</p>
+    <p id="countdown" class="py-4"></p>
+  </div>
+</dialog>
+  `;
+  adoptModal.appendChild(div);
+
+  const modal = document.getElementById("my_modal_5");
+  const countdownId = document.getElementById("countdown");
+
+  let countdown = 3;
+
+  const updateCount = () => {
+    countdownId.innerText = `Countdown closing in ${countdown} seconds`;
+    countdown--;
+    if (countdown < 0) {
+      document.getElementById(`${petId}`).disabled = true;
+      document.getElementById(`${petId}`).innerText = "Adopted";
+      modal.close();
+    } else {
+      setTimeout(() => {
+        updateCount();
+      }, 1000);
+    }
+  };
+
+  modal.showModal();
+  updateCount();
+};
+
 const fetchAllCategories = async () => {
   const response = await fetch(
     "https://openapi.programming-hero.com/api/peddy/categories"
@@ -115,7 +163,6 @@ const fetchPetsByCatagory = async (categoryName) => {
     petCardsContainer.classList.add("grid");
     displayAllPets(data.data);
     activeBtn(categoryName);
-    // console.log(dataForEachCategory);
   }
 };
 
