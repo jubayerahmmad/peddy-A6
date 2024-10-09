@@ -87,7 +87,7 @@ const adoptPet = (petId) => {
   `;
   adoptModal.appendChild(div);
 
-  const modal = document.getElementById("my_modal_5");
+  // const modal = document.getElementById("my_modal_5");
   const countdownId = document.getElementById("countdown");
 
   let countdown = 3;
@@ -98,16 +98,80 @@ const adoptPet = (petId) => {
     if (countdown < 0) {
       document.getElementById(`${petId}`).disabled = true;
       document.getElementById(`${petId}`).innerText = "Adopted";
-      modal.close();
+      document.getElementById("my_modal_5").close();
+      // my_modal_5.close();
+      // modal.close();
     } else {
-      setTimeout(() => {
-        updateCount();
-      }, 1000);
+      setTimeout(updateCount, 1000);
     }
   };
 
-  modal.showModal();
+  // modal.showModal();
+  // my_modal_5.showModal();
+  document.getElementById("my_modal_5").showModal();
   updateCount();
+};
+
+const petDetailsById = async (petId) => {
+  const res = await fetch(
+    `https://openapi.programming-hero.com/api/peddy/pet/${petId}`
+  );
+  const data = await res.json();
+  const modalContainer = document.getElementById("modal-container");
+  const {
+    image,
+    date_of_birth,
+    breed,
+    gender,
+    pet_name,
+    price,
+    vaccinated_status,
+    pet_details,
+  } = data.petData;
+  const div = document.createElement("div");
+  div.innerHTML = `
+  <dialog id="my_modal_${petId}" class="modal modal-bottom sm:modal-middle">
+  <div class="modal-box">
+  <img class="w-full" src="${image}" />
+    <h3 class="text-3xl my-4 font-bold">${pet_name}</h3>
+    <p class="text-gray-500 flex items-center gap-2">
+           <i class="fa-solid fa-paw"></i>Breed: ${breed ? breed : "Unknown"}
+                 </p>
+ <p class="text-gray-500 flex items-center gap-2">
+                   <i class="fa-solid fa-calendar-days"></i>Birth: ${
+                     date_of_birth ? date_of_birth : "Unknown"
+                   }
+             </p>
+                 <p class="text-gray-500 flex items-center gap-2">
+                   <i class="fa-solid fa-mercury"></i>Gender: ${
+                     gender ? gender : "Unknown"
+                   }
+                 </p>
+                 <p class="text-gray-500 flex items-center gap-2 price">
+                   <i class="fa-solid fa-dollar-sign"></i>Price: ${
+                     price ? price : "N/A"
+                   } $
+                 </p>   
+                 <p class="text-gray-500 flex items-center gap-2 price">
+                   <i class="fa-solid fa-syringe"></i>Vaccinated Status: ${
+                     vaccinated_status ? vaccinated_status : "N/A"
+                   }
+                 </p>
+                 <div class="divider"></div>
+           <h3 class="text-3xl my-4 font-bold">Detailed Description</h3>
+           <p>${pet_details}</p>
+
+    <div class="modal-action w-full">
+      <form class="w-full" method="dialog">
+        <button class="btn btn-outline w-full">Close</button>
+      </form>
+    </div>
+  </div>
+</dialog>
+  `;
+
+  modalContainer.appendChild(div);
+  document.getElementById(`my_modal_${petId}`).showModal();
 };
 
 const fetchAllCategories = async () => {
