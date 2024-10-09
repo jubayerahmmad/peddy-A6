@@ -7,6 +7,7 @@ const fetchAllPetsInfo = async () => {
 };
 
 const displayAllPets = async (pets) => {
+  sortBtn(pets);
   const petsContainer = document.getElementById("pet-cards-container");
   petsContainer.innerHTML = "";
 
@@ -62,11 +63,23 @@ const displayAllPets = async (pets) => {
   });
 };
 
+const sortBtn = (pets) => {
+  document.getElementById("spinner").classList.add("hidden");
+  document.getElementById("spinner").classList.remove("flex");
+  document.getElementById("sort-by-price").addEventListener("click", () => {
+    const sortedPets = [...pets].sort((a, b) => {
+      return b.price - a.price;
+    });
+    displayAllPets(sortedPets);
+  });
+};
+
 const likePet = (image) => {
   const likedPetContainer = document.getElementById("liked-pet-container");
   const div = document.createElement("div");
   div.innerHTML = `
-  <div class="p-2 rounded-md border border-teal-600">
+  
+  <div class="p-2 rounded-xl border border-teal-600">
   <img class="rounded-md" src="${image}"  />
   </div>
   `;
@@ -190,7 +203,7 @@ const displayCategoriesBtn = (categories) => {
     <button
     id="${category.category}"
     onclick="fetchPetsByCatagory('${category.category}')"
-          class="category-btn btn btn-outline btn-lg w-48 text-xl font-semibold"
+          class="category-btn btn btn-outline btn-lg hover:bg-teal-50 hover:text-black w-48 text-xl font-semibold"
         >
         <img class="w-10 h-10" src="${category.category_icon}"> </img>
           ${category.category}
@@ -243,13 +256,13 @@ const fetchPetsByCatagory = async (categoryName) => {
 const removeActiveClass = () => {
   const buttons = document.querySelectorAll(".category-btn");
   buttons.forEach((button) => {
-    button.classList.remove("border-teal-600", "btn-circle");
+    button.classList.remove("border-teal-600", "btn-circle", "bg-teal-100");
   });
 };
 const activeBtn = (categoryName) => {
   removeActiveClass();
   const button = document.getElementById(categoryName);
-  button.classList.add("border-teal-600", "btn-circle");
+  button.classList.add("border-teal-600", "btn-circle", "bg-teal-100");
 };
 
 fetchAllCategories();
